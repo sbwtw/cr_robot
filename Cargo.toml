@@ -1,0 +1,10 @@
+[package]
+name = "cr_robot"
+version = "0.1.0"
+authors = ["石博文 <sbw@sbw.so>"]
+
+[dependencies]
+hyper = "*"
+rustc-serialize = "*"
+time = "*"
+clap = "*"
