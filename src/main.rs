@@ -2,6 +2,7 @@
 mod data_item;
 
 extern crate hyper;
+extern crate hyper_native_tls;
 extern crate clap;
 extern crate time;
 extern crate rustc_serialize;
@@ -10,13 +11,15 @@ use data_item::DataItem;
 
 use std::io::Read;
 use hyper::Client;
+use hyper::net::HttpsConnector;
+use hyper_native_tls::NativeTlsClient;
 use clap::{Arg, App};
 use time::strftime;
 use rustc_serialize::json::{Json, encode};
 
 fn get_data_list(user: &str, page: i32) -> Json {
     let nums_per_page = 25;
-    let request = Client::new();
+    let request = Client::with_connector(HttpsConnector::new(NativeTlsClient::new().unwrap()));
     let url: String = format!("https://cr.deepin.io/changes/?q=owner:{}&S={}&n={}",
                                 user, page * nums_per_page, nums_per_page);
 

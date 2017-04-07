@@ -5,6 +5,7 @@ authors = ["石博文 <sbw@sbw.so>"]
 
 [dependencies]
 hyper = "*"
+hyper-native-tls = "*"
 rustc-serialize = "*"
 time = "*"
 clap = "*"
