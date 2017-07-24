@@ -1,9 +1,10 @@
 
-extern crate rustc_serialize;
+extern crate serde_json;
 
 use std::cmp::Ord;
 use std::cmp::Ordering;
-use rustc_serialize::json::Json;
+
+use serde_json::Value;
 
 pub struct DataItem {
     pub number: u64,
@@ -14,15 +15,15 @@ pub struct DataItem {
 }
 
 impl DataItem {
-    pub fn new(json: &Json) -> DataItem {
-        let mut created = json["created"].as_string().unwrap().to_owned();
+    pub fn new(json: &Value) -> DataItem {
+        let mut created = json["created"].as_str().unwrap().to_owned();
         created.truncate(10);
         DataItem {
             number: json["_number"].as_u64().unwrap(),
             created: created,
-            project: json["project"].as_string().unwrap().to_owned(),
-            subject: json["subject"].as_string().unwrap().to_owned(),
-            status: json["status"].as_string().unwrap().to_owned(),
+            project: json["project"].as_str().unwrap().to_owned(),
+            subject: json["subject"].as_str().unwrap().to_owned(),
+            status: json["status"].as_str().unwrap().to_owned(),
         }
     }
 }
